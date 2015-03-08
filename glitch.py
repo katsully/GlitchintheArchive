@@ -13,12 +13,6 @@ logger = logging.getLogger("The Art & Science of Whatever::Image Glitch")
 
 class Glitch(object):
 
-    def download_an_image(self, image_url):
-        """ Saves the file to the script directory """
-        filename = image_url.split('/')[-1]
-        urllib.urlretrieve(image_url, filename)
-        return filename
-
     def get_random_start_and_end_points_in_file(self, file_data):
         """ Shortcut method for getting random start and end points in a file """
         start_point = random.randint(2500, len(file_data))
@@ -74,7 +68,9 @@ class Glitch(object):
 
     def append_random_number_to_filename(self, local_img_file):
         """ Prevent overwriting of original file """
-        return "%s-%s-glitched.%s" % (local_img_file.split(".")[0], random.randint(100, 999), local_img_file.split(".")[1])
+        date = datetime.datetime.now()
+        date_string = date.strftime("%m-%d-%Y")
+        return "%s-%s-glitched.%s" % (local_img_file.split(".")[0], date_string, local_img_file.split(".")[1])
 
     def trigger(self, local_img_file, keyword):
         """ Main trigger function """
