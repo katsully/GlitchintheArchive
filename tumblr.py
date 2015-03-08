@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 TAG_RE = re.compile(r'<[^>]+>')
 
 def remove_tags(text):
-    return TAG_RE.sub('', text)
+		return TAG_RE.sub('', text)
 
 # def get_caption(titles):
 # 	caption = ""
@@ -40,10 +40,17 @@ def search_party ():
   bingSearchTermSyntax = searchTerm.replace(' ','+')
 
 
+<<<<<<< HEAD
   # Start FancyURLopener with defined version 
   class MyOpener(FancyURLopener): 
       version = 'Chrome'
   myopener = MyOpener()
+=======
+# Start FancyURLopener with defined version 
+class MyOpener(FancyURLopener): 
+		version = 'Chrome'
+myopener = MyOpener()
+>>>>>>> origin/master
 
 
   # Notice that the start changes for each iteration in order to request a new set of images for each loop
@@ -61,12 +68,21 @@ def search_party ():
   myopener.retrieve(dataInfo[0]['unescapedUrl'],searchTerm+'.jpg')
 
 # Authenticate via OAuth
+<<<<<<< HEAD
 # client = pytumblr.TumblrRestClient(
 #   keys[0],
 #   keys[1],
 #   keys[2],
 #   keys[3]
 # )
+=======
+client = pytumblr.TumblrRestClient(
+	keys[0],
+	keys[1],
+	keys[2],
+	keys[3]
+)
+>>>>>>> origin/master
 
 # get top news articles from Bing
   page = urllib2.urlopen('http://www.bing.com/news/search?q='+bingSearchTermSyntax+'&FORM=HDRSC6').read()
@@ -75,17 +91,30 @@ def search_party ():
   mydivs = soup.findAll('div', {'class':'newstitle'})
   links = [div.findAll('a') for div in mydivs]
 
+<<<<<<< HEAD
 
   titles = [link[0].contents for link in links]
+=======
+titles = [link[0].contents for link in links]
+>>>>>>> origin/master
 
   new_titles = []
 
+<<<<<<< HEAD
   for title in titles:
       if title[0].find('img') == -1 and title[0].find('RSS') == -1:
       	new_title = ''.join(str(v).encode('ascii','ignore') for v in title)
         new_title = remove_tags(new_title)
         new_titles.append(new_title)
         print new_title
+=======
+# each title comes in as a list (ie - [<strong>Daylight</strong>, u' ', <strong>Saving</strong>, u' ', <strong>Time</strong>, u' Starts Sunday at 2 a.m.'])
+# this loop concatenates the list as a string and removes html tags
+for title in titles:
+		new_title = ''.join(str(v.encode('utf-8')) for v in title)
+		new_title = remove_tags(new_title)
+		new_titles.append(new_title)
+>>>>>>> origin/master
 
 # # post photo to tumblr
 # client.create_photo("anarchyarchive", caption=get_caption(new_titles), state="published" , data=searchTerm.encode('utf-8') + ".jpg")
